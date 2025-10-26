@@ -1,0 +1,74 @@
+📄 Excel to Word 변환기 사용법
+=====================================
+
+🎯 프로그램 개요
+Excel 파일을 업로드하여 원하는 양식의 Word 문서로 변환하는 자동화 프로그램입니다.
+
+📋 시스템 요구사항
+- Python 3.8 이상
+- Windows, macOS, Linux 지원
+
+🚀 설치 방법
+
+Windows 사용자:
+1. install.bat 파일을 더블클릭하여 실행
+2. 설치가 완료되면 run_app.py를 더블클릭하여 프로그램 실행
+
+macOS/Linux 사용자:
+1. 터미널을 열고 다음 명령어 실행:
+   chmod +x install.sh
+   ./install.sh
+2. 설치가 완료되면 다음 명령어로 프로그램 실행:
+   python3 run_app.py
+
+💻 사용 방법
+
+1단계: Excel 파일 업로드
+- "파일 선택" 버튼을 클릭하여 변환할 Excel 파일 선택
+- .xlsx, .xls 형식 지원
+
+2단계: 시트 선택
+- 드롭다운 메뉴에서 변환할 시트 선택
+- 여러 시트가 있는 경우 원하는 시트 선택
+
+3단계: 헤더 설정
+- Title 헤더: 번호가 매겨질 메인 헤더 선택 (예: "모델명")
+- Sub 헤더: 들여쓰기로 표시될 하위 헤더들 선택 (예: "Ticket", "Title", "증상", "해결")
+
+4단계: Word 문서 생성
+- "Word 문서 생성" 버튼 클릭
+- 저장할 위치와 파일명 지정
+- 변환된 Word 문서 다운로드
+
+📄 출력 형식 예시
+
+1. 모델명: GC85
+   Ticket: T22B045
+   Title: S-DAP Cal Error
+   증상: S-DAP Cal Error
+   해결: DAP 관련 문의
+
+2. 모델명: GM60
+   Ticket: T22B040
+   Title: error loading OS and charging issue
+   증상: error loading OS and charging issue
+   해결: OS recovery를 진행하지 못하여 가이드 전달
+
+🔧 문제 해결
+
+Q: 프로그램이 실행되지 않아요
+A: Python이 설치되어 있는지 확인하고, install.bat(Windows) 또는 install.sh(macOS/Linux)를 실행해주세요.
+
+Q: Excel 파일을 읽을 수 없어요
+A: Excel 파일이 손상되지 않았는지 확인하고, .xlsx 또는 .xls 형식인지 확인해주세요.
+
+Q: Word 문서가 생성되지 않아요
+A: Title 헤더와 Sub 헤더를 모두 선택했는지 확인해주세요.
+
+📞 지원
+문제가 발생하면 개발자에게 문의해주세요.
+
+버전: 1.0.0
+최종 업데이트: 2024년 10월
+
+
