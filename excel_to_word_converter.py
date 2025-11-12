@@ -47,23 +47,41 @@ class ExcelToWordConverter:
             title.alignment = WD_ALIGN_PARAGRAPH.CENTER
             
             # 각 행을 개별 항목으로 처리 (그룹화하지 않음)
-            for idx, (_, row) in enumerate(df.iterrows(), 1):
-                # Title 헤더 (번호 매기기)
+            for idx, (_, row) in enumerate(df.iterrows()):
+                # Title 헤더 (스타일 적용, 번호 X)
                 title_value = row[title_header] if title_header in row else ""
-                title_para = doc.add_paragraph()
-                title_run = title_para.add_run(f"{idx}. {title_header}: {title_value}")
-                title_run.bold = True
+                title_text = f"{title_header}: {title_value}"
+                title_para = doc.add_paragraph(title_text)
+                try:
+                    title_para.style = doc.styles['Heading 3']
+                except KeyError:
+                    title_para.style = doc.styles['Heading 2']
                 
-                # Sub 헤더들 출력 (들여쓰기)
+                # Sub 헤더들 출력 (번호 매기기 + 값은 글머리 기호)
+                numbered_index = 1
                 for sub_header in sub_headers:
-                    if sub_header in row and pd.notna(row[sub_header]) and str(row[sub_header]).strip():
-                        sub_para = doc.add_paragraph()
-                        sub_para.paragraph_format.left_indent = Inches(0.5)
-                        sub_run = sub_para.add_run(f"{sub_header}: {row[sub_header]}")
-                        sub_run.italic = True
-                
-                # 각 항목 간 간격 추가
-                doc.add_paragraph()
+                    value_text = ""
+                    if sub_header in row and pd.notna(row[sub_header]):
+                        value_text = str(row[sub_header]).strip()
+                    if not value_text:
+                        continue
+
+                    # 번호가 있는 Sub 제목
+                    sub_title_para = doc.add_paragraph(f"{numbered_index}. {sub_header}")
+                    sub_title_para.paragraph_format.left_indent = Inches(0.25)
+                    sub_title_para_run = sub_title_para.runs[0]
+                    sub_title_para_run.bold = True
+
+                    # Sub 값은 글머리 기호 처리
+                    value_para = doc.add_paragraph(value_text, style='List Bullet')
+                    value_para.paragraph_format.left_indent = Inches(0.75)
+                    value_para.paragraph_format.first_line_indent = Inches(-0.25)
+
+                    numbered_index += 1
+
+                # 각 항목 간 간격 추가 (제목 사이에만 공백 삽입)
+                if idx < len(df) - 1:
+                    doc.add_paragraph()
             
             return doc
         except Exception as e:
